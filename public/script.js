@@ -25,7 +25,7 @@ const update = async () => {
   let assess = {};
   let values = []
   for(const property in posts[0]){
-    if(Object.keys(property)!==id){
+    if(Object.keys(property)!=="id"){
       console.log(values.push(Object.keys(property)));
     }
   }
