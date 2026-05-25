@@ -9,6 +9,8 @@ const teacher_list = document.getElementById("teacher_list");
 const teachers = ["H.S.","M.E.","M.K.","R.Y.","G.F.","Y.I.","T.H.","S.T"];
 const evaluation = document.getElementById("evaluation");
 const form =document.querySelector("#form");
+const axis = [...form.children].filter((val)=> val.tagName === "P"&&!(val.textContent.includes("コメント"))&&val.textContent!=="フォーム").map((val)=>val.textContent);
+//axis.splice(0,2);
 teachers.forEach((value) => {
   let flag = document.createElement("option");
   flag.value=value
@@ -24,20 +26,25 @@ const update = async () => {
   list.innerHTML = "";
   let assess = {};
   let values = []
-  for(const property in posts[0]){
-    if(Object.keys(property)!=="id"){
-      console.log(values.push(Object.keys(property)));
-    }
+  values = Object.keys(posts[0])
+  values.splice(0,3);
+  console.log(values);
+  for(let content of values){
+    assess[content]=0;
   }
   for (const post of posts) {
     const li = document.createElement("li");
     li.textContent = `${post.message}`;
     list.appendChild(li);
-    for(let assessment of values){
-      assess[assessment]+=post[assessment]
+    for(let content of values){
+      assess[content]+=post[content]-0;
+      console.log(post);
+      console.log(post[content])
     }
   }
-  evaluation.textContent =  "";
+  console.log(Object.entries(assess));
+  Object.entries(assess).forEach((val)=>console.log(val))
+  evaluation.textContent = Object.entries(assess).map((val,num) => `${axis[num]}:${(val[1]-0)/posts.length}`).join(" ")
 }
 update();
 search.addEventListener("change",update)
