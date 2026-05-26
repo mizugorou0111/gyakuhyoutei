@@ -167,3 +167,6 @@ input[type="number"]:focus {
 #button:active {
     background-color: #1464cc;
 }
+#warning {
+    color:red;
+}

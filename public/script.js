@@ -9,6 +9,7 @@ const teacher_list = document.getElementById("teacher_list");
 const teachers = ["H.S.","M.E.","M.K.","R.Y.","G.F.","Y.I.","T.H.","S.T.","H.I.","G.M.","T.I.","R.N.","N.S.","R.F"];
 const evaluation = document.getElementById("evaluation");
 const form =document.querySelector("#form");
+const warning = document.getElementById("warning");
 const axis = [...form.children].filter((val)=> val.tagName === "P"&&!(val.textContent.includes("コメント"))&&val.textContent!=="フォーム").map((val)=>val.textContent);
 //axis.splice(0,2);
 teachers.forEach((value) => {
@@ -16,6 +17,9 @@ teachers.forEach((value) => {
   flag.value=value
   teacher_list.appendChild(flag);
 });
+const changeDigits=(number,digit=2)=>{
+  return Math.round(number*Math.pow(10,digit-1))/Math.pow(10,digit-1);
+}
 const update = async () => {
   const response = await fetch("/display", {
     method: "POST", 
@@ -48,7 +52,7 @@ const update = async () => {
   }
   console.log(Object.entries(assess));
   Object.entries(assess).forEach((val)=>console.log(val))
-  evaluation.textContent = Object.entries(assess).map((val,num) => `${axis[num]}:${(val[1]-0)/posts.length}`).join(" ")
+  evaluation.textContent = Object.entries(assess).map((val,num) => `${axis[num]}:${changeDigits((val[1]-0)/posts.length)}`).join(" ")
   let result = "";
   let result_color="";
   let total = Object.entries(assess).reduce((sum,element)=>{
@@ -81,12 +85,17 @@ const update = async () => {
   flag.style.fontSize="20px";
   evaluation.prepend(document.createElement("br"));
   evaluation.prepend(flag);
+  warning.textContent="";
 }
 update();
 search.addEventListener("change",update)
 form.addEventListener("submit",async (event) => {
   event.preventDefault();
-  console.log(Object.fromEntries(new FormData(form)));
+  console.log(Object.entries(Object.fromEntries(new FormData(form))));
+  if(Object.entries(Object.fromEntries(new FormData(form))).some((val)=>val[1]=="")){
+    warning.textContent="入力されていない項目があります";
+    return;
+  }
   await fetch("/posts", {
     method: "POST", 
     headers: { "Content-Type": "application/json" },
