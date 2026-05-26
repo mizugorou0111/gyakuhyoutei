@@ -26,6 +26,10 @@ const update = async () => {
   list.innerHTML = "";
   let assess = {};
   let values = []
+  if(posts.length==0){
+    evaluation.textContent="";
+    return;
+  }
   values = Object.keys(posts[0])
   values.splice(0,3);
   console.log(values);
@@ -45,6 +49,38 @@ const update = async () => {
   console.log(Object.entries(assess));
   Object.entries(assess).forEach((val)=>console.log(val))
   evaluation.textContent = Object.entries(assess).map((val,num) => `${axis[num]}:${(val[1]-0)/posts.length}`).join(" ")
+  let result = "";
+  let result_color="";
+  let total = Object.entries(assess).reduce((sum,element)=>{
+    return sum+element[1]/posts.length/Object.entries(assess).length;
+  },0)
+  console.log(total);
+  switch(Math.floor(total)){
+    case 5:
+    case 4:
+      result="大仏";
+      result_color="#1e90ff";
+      break;
+    case 3:
+      result="仏";
+      result_color="#add8e6";
+      break;
+    case 2:
+      result="鬼";
+      result_color="#f08080";
+      break;
+    case 1:
+      result="大鬼";
+      result_color="#800000";
+      break;
+  }
+  console.log(result);
+  let flag=document.createElement("strong");
+  flag.textContent=result;
+  flag.style.color=result_color;
+  flag.style.fontSize="20px";
+  evaluation.prepend(document.createElement("br"));
+  evaluation.prepend(flag);
 }
 update();
 search.addEventListener("change",update)
