@@ -19,4 +19,5 @@ app.post("/posts", async (request, response) => {
 });
 const evalutions = await prisma.evalution.findMany();
 console.log(evalutions);
-app.listen(process.env.PORT || 3000, "0.0.0.0");
+const port =process.env.PORT || 3000;
+app.listen(port, "0.0.0.0");
