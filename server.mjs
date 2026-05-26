@@ -19,4 +19,4 @@ app.post("/posts", async (request, response) => {
 });
 const evalutions = await prisma.evalution.findMany();
 console.log(evalutions);
-app.listen(3000);
+app.listen(3000, "0.0.0.0");
