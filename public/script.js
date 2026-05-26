@@ -6,7 +6,7 @@ const button = document.getElementById("button");
 const list = document.getElementById("list");
 const search = document.getElementById("search");
 const teacher_list = document.getElementById("teacher_list");
-const teachers = ["H.S.","M.E.","M.K.","R.Y.","G.F.","Y.I.","T.H.","S.T"];
+const teachers = ["H.S.","M.E.","M.K.","R.Y.","G.F.","Y.I.","T.H.","S.T.","H.I.","G.M.","T.I.","R.N.","N.S.","R.F"];
 const evaluation = document.getElementById("evaluation");
 const form =document.querySelector("#form");
 const axis = [...form.children].filter((val)=> val.tagName === "P"&&!(val.textContent.includes("コメント"))&&val.textContent!=="フォーム").map((val)=>val.textContent);
