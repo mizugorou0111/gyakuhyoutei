@@ -1,0 +1,133 @@
+/* public/stylesheet.css */
+
+body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    line-height: 1.6;
+    background-color: #f0f2f5;
+    color: #1c1e21;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Container-like behavior for the whole content */
+body > * {
+    width: 100%;
+    max-width: 600px;
+}
+
+p {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #4b4f56;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #dddfe2;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 16px;
+    background-color: #fff;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #1877f2;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+}
+
+#search {
+    border: 2px solid #1877f2;
+}
+
+#evaluation {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    color: #1877f2;
+    text-align: center;
+    border: 1px solid #e4e6eb;
+    white-space: pre-wrap; /* For long evaluation text */
+}
+
+#list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+#list li {
+    background: #fff;
+    border: 1px solid #dddfe2;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    padding: 15px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    position: relative;
+    padding-left: 20px;
+}
+
+#list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background-color: #1877f2;
+    border-radius: 8px 0 0 8px;
+}
+
+#form {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border: 1px solid #dddfe2;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+#form p:first-child {
+    font-size: 1.2em;
+    color: #1c1e21;
+    border-bottom: 2px solid #f0f2f5;
+    padding-bottom: 10px;
+    margin-top: 0;
+    text-align: center;
+}
+
+#button {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background-color: #1877f2;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.2s;
+}
+
+#button:hover {
+    background-color: #166fe5;
+}
+
+#button:active {
+    background-color: #1464cc;
+}
