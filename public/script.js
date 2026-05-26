@@ -93,4 +93,5 @@ form.addEventListener("submit",async (event) => {
     body: JSON.stringify(Object.fromEntries(new FormData(form))),
   });
   update();
+  form.reset();
 });
