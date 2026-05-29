@@ -4,18 +4,22 @@ const input = document.getElementById("message");
 const person = document.getElementById("teacher");
 const button = document.getElementById("button");
 const list = document.getElementById("list");
-const search = document.getElementById("search");
+const search_input = document.getElementById("search_input");
+const search_select = document.getElementById("search_select");
 const teacher_list = document.getElementById("teacher_list");
-const teachers = ["H.S.","M.E.","M.K.","R.Y.","G.F.","Y.I.","T.H.","S.T.","H.I.","G.M.","T.I.","R.N.","N.S.","R.F"];
+const teachers = ["H.S.","M.E.","M.K.","R.Y.(社会)","G.F.","Y.I.","T.H.","S.T.","H.I.","G.M.","T.I.","R.N.","N.S.","R.F","R.Y.(英語)",""].sort();
 const evaluation = document.getElementById("evaluation");
 const form =document.querySelector("#form");
 const warning = document.getElementById("warning");
 const axis = [...form.children].filter((val)=> val.tagName === "P"&&!(val.textContent.includes("コメント"))&&val.textContent!=="フォーム").map((val)=>val.textContent);
+const change_button =document.getElementById("change");
+let kind = true;
 //axis.splice(0,2);
 teachers.forEach((value) => {
   let flag = document.createElement("option");
   flag.value=value
   teacher_list.appendChild(flag);
+  search_select.appendChild(flag);
 });
 const changeDigits=(number,digit=2)=>{
   return Math.round(number*Math.pow(10,digit-1))/Math.pow(10,digit-1);
@@ -24,7 +28,7 @@ const update = async () => {
   const response = await fetch("/display", {
     method: "POST", 
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({teacher:search.value}),
+    body: JSON.stringify({teacher: kind?search_input.value:search_select.value}),
   });
   const posts = await response.json();
   list.innerHTML = "";
@@ -88,11 +92,13 @@ const update = async () => {
   warning.textContent="";
 }
 update();
-search.addEventListener("change",update)
+search_input.addEventListener("change",update);
+search_select.addEventListener("change",update);
 form.addEventListener("submit",async (event) => {
   event.preventDefault();
   console.log(Object.entries(Object.fromEntries(new FormData(form))));
   if(Object.entries(Object.fromEntries(new FormData(form))).some((val)=>val[1]=="")){
+    warning.style.color="red";
     warning.textContent="入力されていない項目があります";
     return;
   }
@@ -103,4 +109,20 @@ form.addEventListener("submit",async (event) => {
   });
   update();
   form.reset();
+  warning.style.color="black";
+  warning.textContent="送信されました"
 });
+const change_select = ()=>{
+  if(kind){
+    search_input.style.display="block";
+    search_select.style.display="none";
+  }else{
+    search_input.style.display="none";
+    search_select.style.display="block";
+  }
+}
+change_button.onclick = ()=>{
+  kind = !(kind);
+  change_select(); 
+}
+change_select();

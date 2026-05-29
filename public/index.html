@@ -7,14 +7,21 @@
     <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>
+    <button id="change">教員を選択式で入力する</button>
     <p>評価の検索</p>
-    <input type="text" placeholder="教師" id="search" list="teacher_list">
+    <input type="text" placeholder="教師" id="search_input" list="teacher_list">
+    <select id="search_select">
+        <option value="">教員を選択</option>
+    </select>
     <div id="evaluation"></div>
     <p>コメント</p>
     <ul id="list"></ul>
     <form id="form">
         <p>フォーム</p>
-        <input type="text" id="teacher" name="teacher"  placeholder="教員" list="teacher_list">
+        <input type="text" id="teacher_input" name="teacher"  placeholder="教員" list="teacher_list">
+        <select name="teacher" id="teacher_select">
+            <option value="">教員を選択</option>
+        </select>
         <p>コメント(自由記述)</p>
         <input type="text" id="message" name="message" placeholder="評価">
         <p>出席</p><input type="number" step="1" min="1" max="5" name="attendance">
