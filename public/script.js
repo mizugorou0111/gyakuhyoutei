@@ -6,8 +6,10 @@ const button = document.getElementById("button");
 const list = document.getElementById("list");
 const search_input = document.getElementById("search_input");
 const search_select = document.getElementById("search_select");
+const teacher_input = document.getElementById("teacher_input");
+const teacher_select = document.getElementById("teacher_select");
 const teacher_list = document.getElementById("teacher_list");
-const teachers = ["H.S.","M.E.","M.K.","R.Y.(社会)","G.F.","Y.I.","T.H.","S.T.","H.I.","G.M.","T.I.","R.N.","N.S.","R.F","R.Y.(英語)",""].sort();
+const teachers = ["H.S.","M.E.","M.K.","R.Y.(社会)","G.F.","Y.I.","T.H.","S.T.","H.I.","G.M.","T.I.","R.N.","N.S.","R.F","R.Y.(英語)"].sort();
 const evaluation = document.getElementById("evaluation");
 const form =document.querySelector("#form");
 const warning = document.getElementById("warning");
@@ -16,10 +18,19 @@ const change_button =document.getElementById("change");
 let kind = true;
 //axis.splice(0,2);
 teachers.forEach((value) => {
-  let flag = document.createElement("option");
-  flag.value=value
-  teacher_list.appendChild(flag);
-  search_select.appendChild(flag);
+  let datalist_option = document.createElement("option");
+  datalist_option.value = value;
+  teacher_list.appendChild(datalist_option);
+
+  let search_option = document.createElement("option");
+  search_option.value = value;
+  search_option.textContent = value;
+  search_select.appendChild(search_option);
+
+  let form_option = document.createElement("option");
+  form_option.value = value;
+  form_option.textContent = value;
+  teacher_select.appendChild(form_option);
 });
 const changeDigits=(number,digit=2)=>{
   return Math.round(number*Math.pow(10,digit-1))/Math.pow(10,digit-1);
@@ -116,9 +127,19 @@ const change_select = ()=>{
   if(kind){
     search_input.style.display="block";
     search_select.style.display="none";
+    teacher_input.style.display="block";
+    teacher_input.disabled = false;
+    teacher_select.style.display="none";
+    teacher_select.disabled = true;
+    change_button.textContent="教員を選択式で入力する"
   }else{
     search_input.style.display="none";
     search_select.style.display="block";
+    teacher_input.style.display="none";
+    teacher_input.disabled = true;
+    teacher_select.style.display="block";
+    teacher_select.disabled = false;
+    change_button.textContent="教員を手打ちで入力する"
   }
 }
 change_button.onclick = ()=>{
